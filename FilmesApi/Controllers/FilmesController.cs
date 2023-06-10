@@ -11,13 +11,15 @@ public class FilmesController : ControllerBase
     private static int _id = 0;
 
     [HttpPost]
-    public void AdicionarFilme([FromBody] Filme filme)
+    public IActionResult AdicionarFilme([FromBody] Filme filme)
     {
         filme.Id = _id++;
         _filmes.Add(filme);
-        Console.WriteLine(filme.Titulo);
-        Console.WriteLine(filme.Duracao);
-
+        //Qual caminho ele pode seguir para verificar se foi adicionado?
+        return CreatedAtAction(
+            nameof(RecuparFilmePorId),
+            new { id = filme.Id },
+            filme);
     }
 
     [HttpGet]
@@ -27,10 +29,12 @@ public class FilmesController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public Filme? RecuparFilmePorId(int id)
+    public IActionResult RecuparFilmePorId(int id)
     {
         // Skip (pular elementos) e take (pegar elementos)
-        return _filmes.FirstOrDefault(filme => filme.Id == id);
+       var filme = _filmes.FirstOrDefault(filme => filme.Id == id);
+        if (filme == null) return NotFound();
+        return Ok(filme);
     }
 
 }
