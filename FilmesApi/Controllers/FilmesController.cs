@@ -21,14 +21,15 @@ public class FilmesController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<Filme> RecuparFilmes()
+    public IEnumerable<Filme> RecuparFilmes([FromQuery] int skip = 0, int take = 50)
     {
-        return _filmes;
+        return _filmes.Skip(skip).Take(take);
     }
 
     [HttpGet("{id}")]
     public Filme? RecuparFilmePorId(int id)
     {
+        // Skip (pular elementos) e take (pegar elementos)
         return _filmes.FirstOrDefault(filme => filme.Id == id);
     }
 
