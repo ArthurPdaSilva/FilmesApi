@@ -8,6 +8,9 @@ builder.Services.AddDbContext<FilmeContext>(opts => opts.UseMySql(
     connectionString, ServerVersion.AutoDetect(connectionString)
 ));
 
+//Adicionando auto mapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 // Add services to the container.
 
 builder.Services.AddControllers();
