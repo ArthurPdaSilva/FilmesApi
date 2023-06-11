@@ -7,7 +7,7 @@ namespace FilmesApi.Controllers;
 [Route("[controller]")]
 public class FilmesController : ControllerBase
 {
-    private static List<Filme> _filmes = new List<Filme>();
+    private static readonly List<Filme> _filmes = new();
     private static int _id = 0;
 
     [HttpPost]
